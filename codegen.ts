@@ -4,7 +4,7 @@ const config: CodegenConfig = {
   overwrite: true,
   schema: 'https://wpheadless.casabrava.se/graphql',
   generates: {
-    'lib/gql/': {
+    'lib/generated/': {
       preset: 'client',
       plugins: [],
     },

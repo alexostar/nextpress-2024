@@ -2,8 +2,8 @@ import axios from 'axios';
 import TodoItem from './TodoItem';
 import { GET_ALL_TODOS } from '@/lib/graphql/todos';
 
-import { Todo } from '@/lib/gql/graphql';
-import { TodoConnectionEdge } from '@/lib/gql/graphql';
+import { Todo } from '@/lib/generated/graphql';
+import { TodoConnectionEdge } from '@/lib/generated/graphql';
 
 export const dynamic = 'force-dynamic';
 

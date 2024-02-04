@@ -2,32 +2,34 @@
 
 import { useTransition } from 'react';
 
-import { Todo } from '@/lib/generated/graphql';
-import { updateTodoAction } from '@/lib/actions/updateTodoAction';
+import { Issue } from '@/lib/generated/graphql';
+import { updateIssueAction } from '@/lib/actions/updateIssueAction';
 
-type TodoItemProps = {
-  todo: Todo;
+type IssueItemProps = {
+  issue: Issue;
 };
 
-const TodoItem = ({ todo }: TodoItemProps) => {
+const IssueItem = ({ issue }: IssueItemProps) => {
   const [isPending, startTransition] = useTransition();
+
+  console.log('Issue:', issue);
 
   return (
     <li className='flex items-center gap-3'>
       <input
-        id={todo.id}
+        id={issue.id}
         type='checkbox'
         // @ts-ignore
-        defaultChecked={todo.isCompleted}
+        defaultChecked={issue.issueFields.isCompleted}
         onChange={(e) =>
-          startTransition(() => updateTodoAction(todo.id, e.target.checked))
+          startTransition(() => updateIssueAction(issue.id, e.target.checked))
         }
         className='peer h-4 w-4 cursor-pointer rounded border-gray-300 text-slate-600 focus:ring-slate-600'
       />
       <label
-        htmlFor={todo.id}
+        htmlFor={issue.id}
         className='cursor-pointer peer-checked:text-slate-500 peer-checked:line-through'>
-        {todo.title}
+        {issue.title}
       </label>
       <span className='ml-auto text-sm text-slate-500 peer-checked:line-through'>
         WordPress Todo
@@ -36,4 +38,4 @@ const TodoItem = ({ todo }: TodoItemProps) => {
   );
 };
 
-export default TodoItem;
+export default IssueItem;

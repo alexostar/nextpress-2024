@@ -1,4 +1,6 @@
 'use server';
+
+import axios from 'axios';
 import { revalidatePath } from 'next/cache';
 import { UPDATE_TODO } from '../graphql/todos';
 
@@ -16,27 +18,21 @@ export async function updateTodoAction(id: string, isCompleted: boolean) {
     Authorization: 'Basic ' + encoded,
   };
 
-  const options = {
-    method: 'POST',
-    headers: headers,
-    body: JSON.stringify({
-      query: UPDATE_TODO,
-      variables: {
-        id: id,
-        isCompleted: isCompleted,
-      },
-    }),
+  const graphqlMutation = {
+    query: UPDATE_TODO,
+    variables: {
+      id: id,
+      isCompleted: isCompleted,
+    },
   };
 
-  const fetchAPI = async () => {
-    try {
-      const result = await fetch(url, options);
-      const data = await result.json();
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  await fetchAPI();
+  const response = await axios({
+    url: url,
+    method: 'post',
+    headers: headers,
+    data: graphqlMutation,
+  });
+  console.log(response);
+
   revalidatePath('/');
 }
